@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="sample.css" />
+<script src="https://fb.me/react-with-addons-0.13.3.js"></script>
+<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+	<script type="text/jsx">
+		var App = React.createClass({
+			render : function(){
+					return (
+					<div>
+						<h1>"Hello" {this.props.text}</h1>
+					</div>
+					);
+			}
+		
+		});
+		React.render(<App text="Amit"/>, document.getElementById('mount-point'));
+	</script>
+
+	<div id ="mount-point"></div>
+	<div id="list"></div>
+
+
+</body>
+
+</html>
