@@ -7,17 +7,30 @@
 </head>
 <body>
 	<script type="text/jsx">
+		
 		var App = React.createClass({
+			getDefaultProps : function(){
+				return {
+					text : "This is a default hello message"
+				}
+			},
+			propTypes : {
+				text : React.PropTypes.string.isRequired,
+				name : React.PropTypes.string.isRequired
+			},
 			render : function(){
+					var text = this.props.text;
+					var name = this.props.name;
 					return (
 					<div>
-						<h1>"Hello" {this.props.text}</h1>
+						<b>BOLD</b>
+						<h1> {this.props.text} {name}</h1>
 					</div>
 					);
 			}
 		
 		});
-		React.render(<App text="Amit"/>, document.getElementById('mount-point'));
+		React.render(<App  name="Amit"/>, document.getElementById('mount-point'));
 	</script>
 
 	<div id ="mount-point"></div>
