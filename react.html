@@ -11,31 +11,40 @@
 		var App = React.createClass({
 			getInitialState : function(){
 				return {
-				text : "This is the inital State, please input to modify"
+				text : ""
 				};
 				
 			},
-			getDefaultProps : function(){
-				return {
-					text : "This is a default hello message"
-				}
-			},
 			propTypes : {
 				text : React.PropTypes.string.isRequired,
-				name : React.PropTypes.string.isRequired
+				
+			},
+			update : function(event){
+				this.setState({text : event.target.value});
 			},
 			render : function(){
-					var text = this.props.text;
-					var name = this.props.name;
+					
 					return (
 					<div>
-						<b>BOLD</b>
-						<input type="text" defaultValue={this.state.text}/>
-						<h1> {this.props.text} {name}</h1>
+						<Widget text={this.state.text} update={this.state.update}/>
 					</div>
 					);
 			}
 		
+		});
+		
+		var Widget = React.createClass({
+			
+			render : function(){
+				return (
+					<div>
+					<b>BOLD</b>
+					<input type="text" defaultValue={this.props.text} onChange={this.props.update}/>
+					<h1> {this.props.text} {name}</h1>
+				</div>
+				);
+			
+			}
 		});
 		React.render(<App  name="Amit"/>, document.getElementById('mount-point'));
 	</script>
