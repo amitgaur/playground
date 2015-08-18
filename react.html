@@ -7,51 +7,59 @@
 </head>
 <body>
 	<script type="text/jsx">
+	
 		
-		var App = React.createClass({
-			getInitialState : function(){
-				return {
-				text : ""
-				};
-				
-			},
-			propTypes : {
-				text : React.PropTypes.string.isRequired,
-				
-			},
-			update : function(event){
-				this.setState({text : event.target.value});
-			},
-			render : function(){
-					
-					return (
-					<div>
-						<Widget text={this.state.text} update={this.state.update}/>
-					</div>
-					);
-			}
+	var App = React.createClass({
+	  getInitialState:function(){
+	    return {
+	      red:0,
+		  blue :0,
+		  green:0,
+	      txt : 200
+		};
+		
+	  },
+	  update: function(e){
+		
+	    this.setState({
+			red:React.findDOMNode(this.refs.red.refs.inp).value,
+			blue:React.findDOMNode(this.refs.blue.refs.inp).value,   
+			green:React.findDOMNode(this.refs.green.refs.inp).value,
+			
 		
 		});
-		
-		var Widget = React.createClass({
-			
-			render : function(){
-				return (
-					<div>
-					<b>BOLD</b>
-					<input type="text" defaultValue={this.props.text} onChange={this.props.update}/>
-					<h1> {this.props.text} {name}</h1>
-				</div>
-				);
-			
-			}
-		});
-		React.render(<App  name="Amit"/>, document.getElementById('mount-point'));
+	  },
+	  render:function(){
+	    return (
+	      	<div>
+				<h1>HOHO{this.state.txt}</h1>
+				<hr/>
+	        <Slider ref="red"   update={this.update} value="200" />
+			<label><h1>{this.state.red}</h1></label>
+	        <Slider ref="green"  update={this.update} value="200" />
+			<label><h1>{this.state.green}</h1></label>
+	        <Slider ref="blue"  update={this.update} value="200" />
+			<label><h1>{this.state.blue}</h1></label>
+	       </div>
+	      );
+
+	  }
+	});
+
+	var Slider = React.createClass({
+	  render:function(){
+	    return (
+	      <div>
+	        <input ref="inp" type="range"  min="0" max="255" defaultValue={this.props.value} onChange={this.props.update} />
+	      </div>
+	      );
+
+	  }
+	});
+
+	React.render(<App txt="this is the txt prop"  />, document.getElementById('mount-point'));
 	</script>
-
 	<div id ="mount-point"></div>
-	<div id="list"></div>
-
 
 </body>
 
