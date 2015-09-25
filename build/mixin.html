@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="sample.css" />
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" />
+<script src="https://fb.me/react-with-addons-0.13.3.js"></script>
+<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+</head>
+<body>
+	<script type="text/jsx">
+		var ReactMixIns = {
+			getInitialState : function(){
+				return { count : 0, isOn : false}
+			},
+			componentWillMount : function(){
+				console.log("will mount!", this.state.count)
+			},
+			incrementCount : function(){
+				this.setState({count : this.state.count+1})
+			}
+			
+			
+		}
+		var App = React.createClass({
+			
+			render : function(){
+			 return (
+			 	<div>
+					<Button txt="this is the button"/>
+					<br/>
+					<Label txt="this is the label"/>
+				</div>
+			 
+			 )
+			}
+		});
+		
+		var Button = React.createClass({
+			mixins :[ReactMixIns],
+			render : function(){
+				return (
+					<button onClick={this.incrementCount}>{this.props.txt}+ {this.state.count}</button>
+				)
+			}
+		});
+		
+		var Label = React.createClass({
+			mixins :[ReactMixIns],
+			
+			updateCount : function(){
+				if (this.state.isOn){
+					console.log("is being turned off");
+					clearInterval(this.interval);
+					this.state.isOn = false;
+				}
+				else{
+					console.log("Is being turned on ")
+					this.interval = setInterval(this.incrementCount, 500);
+					this.state.isOn = true;
+				}
+				console.log("Done");
+			},
+			render : function(){
+				return (
+					<label onClick={this.updateCount}>{this.props.txt} + {this.state.count}</label>
+				)
+			}
+		});
+		
+		React.render(<App/>, document.body);
+		
+	</script>
+	
+</body>
+</html>
