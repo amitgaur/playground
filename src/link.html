@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="sample.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"/>
+    <script src="https://fb.me/react-with-addons-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+
+</div>
+<script type="text/jsx">
+    var App = React.createClass({
+        mixins : [React.addons.LinkedStateMixin],
+        getInitialState : function(){
+            return {name:'',email:''}
+        },
+
+        render: function(){
+            return (
+                    <form>
+                        <div>
+                            <input valueLink={this.linkState('name')} type="text" placeholder="Name"/>
+                            <label>*{this.state.name}</label>
+                        </div>
+                        <div>
+                            <input valueLink={this.linkState('email')} type="text" placeholder="Email"/>
+                            <label>*{this.state.email}</label>
+                        </div>
+                    </form>
+
+            )
+        }
+    });
+
+
+    React.render(<App/>, document.getElementById('app'));
+</script>
+</body>
+</html>

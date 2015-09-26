@@ -30,7 +30,9 @@ var PersonTable = React.createClass({
 
 
     },
+    renderChart : function(){
 
+    },
     render: function () {
         var rows = this.state.data.map(function (person) {
             console.log(person);

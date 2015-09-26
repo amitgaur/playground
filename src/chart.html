@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .bar
+        {
+            display: inline-block;
+            width: 20px;
+            height: 75px; /* Gets overriden by D3-assigned height below */
+            margin-right: 2px;
+            background-color: teal;
+        }
+    </style>
+</head>
+<body>
+<script src="../bower_components/react/react.min.js" ></script>
+<script src="../bower_components/react/JSXTransformer.js" ></script>
+<script src="../bower_components/d3/d3.js" ></script>
+<script src="../bower_components/reqwest/reqwest.js" ></script>
+<script type="text/jsx">
+
+    var App = React.createClass({
+        getInitialState : function(){
+            return { data : []}
+    },
+    componentWillMount : function(){
+
+        reqwest({
+            url  : 'http://www.filltext.com/?rows=10&val={randomNumber|100}',
+            type: 'jsonp',
+            success : function(resp){
+                var num = resp.map(function(obj){
+                   return obj.val;
+                });
+                this.setState({data: num});
+                this.renderChart(this.state.data);
+
+            }.bind(this)
+        })},
+        renderChart : function(dataSet){
+            console.log(dataSet);
+            d3.select('#chart').selectAll('div')
+                    .data(dataSet)
+                    .enter()
+                    .append('div')
+                    .attr('class','bar')
+                    .style('height', function(d){
+                        return d*5 +'px';
+                    });
+
+
+        },
+        render: function(){
+            return (<div id="chart"></div>)
+        }
+
+    });
+    React.render(<App/>, document.getElementById("chart-app"));
+
+
+</script>
+<div id="chart-app"></div>
+</body>
+</html>
